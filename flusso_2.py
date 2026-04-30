@@ -38,18 +38,19 @@ tab_processi, categorie_processi, json_data = load_data()
 # "Funzione per pulire le stringhe"
 def clean_text(x):
     if isinstance(x, str):
+        x = x.replace("\u00A0", " ")  # NBSP Excel
         x = x.strip().rstrip(".").lower()
-        
-        # unicode
+
+        # unicode (accenti)
         x = unicodedata.normalize("NFKD", x)
         x = "".join(c for c in x if not unicodedata.combining(c))
-        
+
         # spazi multipli
         x = re.sub(r"\s+", " ", x)
-        
-        # rimuove spazi attorno a simboli
+
+        # trattini normalizzati
         x = re.sub(r"\s*-\s*", "-", x)
-        
+
         return x
     return x
 
