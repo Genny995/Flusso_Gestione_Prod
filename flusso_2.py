@@ -1,12 +1,14 @@
 import streamlit as st
 import pandas as pd
 import json
+import unicodedata
+import re
 
 # =========================
 # LOAD DATI
 # =========================
 
-@st.cache_data
+#@st.cache_data
 def load_data():
     # "Carica i dati da Excel e JSON"
 
@@ -36,7 +38,19 @@ tab_processi, categorie_processi, json_data = load_data()
 # "Funzione per pulire le stringhe"
 def clean_text(x):
     if isinstance(x, str):
-        return x.strip().rstrip(".").lower()
+        x = x.strip().rstrip(".").lower()
+        
+        # unicode
+        x = unicodedata.normalize("NFKD", x)
+        x = "".join(c for c in x if not unicodedata.combining(c))
+        
+        # spazi multipli
+        x = re.sub(r"\s+", " ", x)
+        
+        # rimuove spazi attorno a simboli
+        x = re.sub(r"\s*-\s*", "-", x)
+        
+        return x
     return x
 
 
@@ -160,6 +174,7 @@ if proc:
 
         # "Usiamo direttamente il valore pulito"
         categoria_clean = categoria_label
+
 
 
         # =========================
