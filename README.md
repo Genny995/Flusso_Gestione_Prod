@@ -86,6 +86,7 @@ Esempio:
     "Quantità carico/scarico"
   ]
 }
+```
 
 ### Logica Applicativa
 
