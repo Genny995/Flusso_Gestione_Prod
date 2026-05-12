@@ -72,7 +72,8 @@ json_map = {
 INPUT_SEMPRE_PRESENTI = [
     clean_text("Categoria prodotto vitivinicolo/prodotto"),
     clean_text("Nome prodotto"),
-    clean_text("Quantità carico/scarico")
+    clean_text("Quantità carico"),
+    clean_text("Quantità scarico")
 ]
 
 
